@@ -1,3 +1,4 @@
+const { employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -10,9 +11,17 @@ function getAnimalsOlderThan(animal, age) {
   return specieAnimal.residents.every((animalAge) => animalAge.age >= age);
 }
 
-function getEmployeeByName(employeeName) {
+function getEmployeeByName(name) {
   // seu código aqui
+  if (name === undefined) {
+    return {};
+  }
+  const cond = (employee) => employee.firstName === name || employee.lastName === name;
+  const resultEmployee = employees.find(cond);
+  return resultEmployee;
 }
+
+console.log(getEmployeeByName());
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
