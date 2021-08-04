@@ -21,8 +21,6 @@ function getEmployeeByName(name) {
   return resultEmployee;
 }
 
-console.log(getEmployeeByName());
-
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
 }
