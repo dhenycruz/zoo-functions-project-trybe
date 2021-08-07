@@ -42,6 +42,21 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 function countAnimals(species) {
   // seu código aqui
+  /**
+   * Source: https://danielobara.wordpress.com/2018/11/20/como-converter-array-de-objetos-para-um-unico-objeto-em-javascript-com-es6/
+   * Pesquisei e encontrei nesse site como  usar o reduce para criar um objeto utilizando a condição que desejamos para cada elemento.
+   */
+  if (species === undefined) {
+    const cond = (obj, item) => {
+      // console.log(item.name);
+      const objAnimal = obj;
+      objAnimal[`${item.name}`] = item.residents.length;
+      return objAnimal;
+    };
+    return data.species.reduce(cond, {});
+  }
+  const result = data.species.find((specie) => specie.name === species);
+  return result.residents.length;
 }
 
 function calculateEntry(entrants) {
