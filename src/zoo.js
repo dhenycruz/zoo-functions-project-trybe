@@ -40,13 +40,13 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return employee;
 }
 
-function countAnimals(species) {
+function countAnimals(paramSpecies) {
   // seu código aqui
   /**
    * Source: https://danielobara.wordpress.com/2018/11/20/como-converter-array-de-objetos-para-um-unico-objeto-em-javascript-com-es6/
    * Pesquisei e encontrei nesse site como  usar o reduce para criar um objeto utilizando a condição que desejamos para cada elemento.
    */
-  if (species === undefined) {
+  if (paramSpecies === undefined) {
     const cond = (obj, item) => {
       // console.log(item.name);
       const objAnimal = obj;
@@ -55,7 +55,7 @@ function countAnimals(species) {
     };
     return data.species.reduce(cond, {});
   }
-  const result = data.species.find((specie) => specie.name === species);
+  const result = data.species.find((specie) => specie.name === paramSpecies);
   return result.residents.length;
 }
 
@@ -86,6 +86,13 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
+  Object.keys(prices).forEach((value, indice) => {
+    const prop = value;
+    const newPrice = ((percentage * prices[prop]) / 100 + prices[prop]);
+    const priceFloat = (newPrice + 0.001).toFixed(2);
+    prices[value] = parseFloat(priceFloat);
+  });
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
