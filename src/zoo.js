@@ -1,4 +1,4 @@
-const { employees, prices } = require('./data');
+const { employees, prices, species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -97,6 +97,23 @@ function increasePrices(percentage) {
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  const employee = employees.reduce((obj, emp) => {
+    const returnObj = obj;
+    returnObj[`${emp.firstName} ${emp.lastName}`] = emp.responsibleFor.map((
+      responsibleFor,
+    ) => species.find((specie) => specie.id === responsibleFor).name);
+    return returnObj;
+  }, {});
+  if (idOrName === undefined) {
+    return employee;
+  }
+  const emp = employees.find((
+    empValue,
+  ) =>
+    empValue.id === idOrName || empValue.firstName === idOrName || empValue.lastName === idOrName);
+  const objEmp = {};
+  objEmp[`${emp.firstName} ${emp.lastName}`] = employee[`${emp.firstName} ${emp.lastName}`];
+  return objEmp;
 }
 
 module.exports = {
