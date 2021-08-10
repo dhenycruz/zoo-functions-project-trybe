@@ -93,9 +93,20 @@ function getSchedule(dayName) {
   return resultDay;
 }
 
-console.log(getSchedule());
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
+  const employeeResult = employees.find((employee) => employee.id === id);
+  const idSpecie = employeeResult.responsibleFor[0];
+  const specieResult = species.find((specie) => specie.id === idSpecie).residents;
+  let comp = 0;
+  let oldAnimal;
+  Object.keys(specieResult).forEach((animal) => {
+    if (specieResult[animal].age > comp) {
+      oldAnimal = specieResult[animal];
+      comp = specieResult[animal].age;
+    }
+  });
+  return [oldAnimal.name, oldAnimal.sex, oldAnimal.age];
 }
 
 function increasePrices(percentage) {
