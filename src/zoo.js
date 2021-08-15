@@ -48,7 +48,6 @@ function countAnimals(paramSpecies) {
    */
   if (paramSpecies === undefined) {
     const cond = (obj, item) => {
-      // console.log(item.name);
       const objAnimal = obj;
       objAnimal[item.name] = item.residents.length;
       return objAnimal;
@@ -61,7 +60,6 @@ function countAnimals(paramSpecies) {
 
 function calculateEntry(entrants) {
   // seu código aqui
-  console.log(entrants);
   if (entrants === undefined || Object.keys(entrants).length === 0) {
     return 0;
   }
@@ -72,8 +70,61 @@ function calculateEntry(entrants) {
   return priceTotal;
 }
 
+// function que  cria um objeto se nao for passado nenhum paramentro
+function withoutParam(arrayLocation) {
+  const objLocation = {};
+  arrayLocation.forEach((location) => {
+    objLocation[location] = species.reduce((array, specie) => {
+      if (specie.location === location) {
+        array.push(specie.name);
+      }
+      return array;
+    }, []);
+  });
+  return objLocation;
+}
+
+function arrayNames(array, options) {
+  let arrayReturn = [];
+  if (options.sex !== undefined) {
+    arrayReturn = array.reduce((arrayResident, resident) => {
+      if (resident.sex === options.sex) {
+        arrayResident.push(resident.name);
+      }
+      return arrayResident;
+    }, []);
+  } else {
+    arrayReturn = array.map((resident) => resident.name);
+  }
+
+  return arrayReturn;
+}
+
+function includeNames(array, options) {
+  const objNames = {};
+  array.forEach((location) => {
+    objNames[location] = species.filter((specie) => specie.location === location).map((specie) => {
+      const objSpecie = {};
+      const arrayResult = arrayNames(specie.residents, options);
+      objSpecie[specie.name] = (options.sorted === true ? arrayResult.sort() : arrayResult);
+      return objSpecie;
+    });
+  });
+  return objNames;
+}
+
 function getAnimalMap(options) {
   // seu código aqui
+  const allLocations = species.map((specie) => specie.location);
+  const arrayLocations = allLocations.filter((
+    location, value,
+  ) => allLocations.indexOf(location) === value);
+
+  if (options === undefined || options.includeNames === undefined) {
+    return withoutParam(arrayLocations);
+  }
+
+  return includeNames(arrayLocations, options);
 }
 
 function getSchedule(dayName) {
