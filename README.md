@@ -17,7 +17,7 @@ Objetivo do projeto:
 
 ## 🛠️ Construído com
 
-* jAVASCRIPT
+* JavaScript
 
 ## ✒️ Autor
  
